@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import styled from 'styled-components';
+import Game from './Components/Game/Game';
+
+const Container = styled.div`
+	padding-top: 2rem;
+	display: flex;
+	min-height: 100vh;
+	width: min(768px, 93vw);
+	margin: 0 auto;
+	flex-direction: column;
+	align-items: center;
+`;
+
+const Header = styled.h1`
+	margin-bottom: 1rem;
+	font-size: 3rem;
+	color: #222222;
+`;
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<Container>
+			<Header>Deja Vu</Header>
+			<Game />
+		</Container>
+	);
 }
 
 export default App;
