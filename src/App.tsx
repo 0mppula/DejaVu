@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import styled from 'styled-components';
 import Game from './Components/Game/Game';
 
@@ -17,13 +18,13 @@ const Header = styled.h1`
 	color: #222222;
 `;
 
-function App() {
+const App: FC = () => {
 	return (
 		<Container>
 			<Header>Deja Vu</Header>
 			<Game />
 		</Container>
 	);
-}
+};
 
 export default App;

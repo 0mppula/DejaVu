@@ -1,9 +1,13 @@
 import styled from 'styled-components';
 import cardImg from '../../images/card-back.jpg';
 
-type Props = {
-	flipped: Boolean;
-};
+interface CardProps {
+	flipped: boolean;
+}
+
+interface CardContainerProps {
+	onClick: () => void;
+}
 
 export const GameContainer = styled.div`
 	display: flex;
@@ -11,13 +15,13 @@ export const GameContainer = styled.div`
 	gap: 1rem;
 	justify-content: center;
 	width: 100%;
-	`;
+`;
 
-export const CardContainer = styled.div`
+export const CardContainer = styled.div<CardContainerProps>`
 	position: relative;
-	`;
+`;
 
-export const CardBack = styled.div<Props>`
+export const CardBack = styled.div<CardProps>`
 	padding: 1rem;
 	border: solid 2px #222222;
 	width: 150px;
@@ -31,7 +35,7 @@ export const CardBack = styled.div<Props>`
 	background-image: url(${cardImg});
 `;
 
-export const CardFront = styled.div<Props>`
+export const CardFront = styled.div<CardProps>`
 	position: absolute;
 	top: 0px;
 	right: 0px;
