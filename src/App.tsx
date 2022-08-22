@@ -13,7 +13,6 @@ const Container = styled.div`
 `;
 
 const Header = styled.h1`
-	margin-bottom: 1rem;
 	font-size: 3rem;
 	color: #222222;
 `;
@@ -21,7 +20,7 @@ const Header = styled.h1`
 const App: FC = () => {
 	return (
 		<Container>
-			<Header>Deja Vu</Header>
+			<Header>Déjà Vu</Header>
 			<Game />
 		</Container>
 	);

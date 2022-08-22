@@ -3,18 +3,50 @@ import cardImg from '../../images/card-back.jpg';
 
 interface CardProps {
 	flipped: boolean;
+	card?: object;
 }
 
 interface CardContainerProps {
-	onClick: () => void;
+	// onClick: () => void;
 }
 
 export const GameContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+`;
+
+export const CardsContainer = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 	gap: 1rem;
 	justify-content: center;
 	width: 100%;
+`;
+
+export const StartButton = styled.button`
+	font-weight: 500;
+	background-color: #d4e6f6a8;
+	cursor: pointer;
+`;
+
+export const GameTop = styled.div`
+	display: flex;
+	width: 100%;
+	gap: 1rem;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 1rem;
+
+	p,
+	button {
+		text-align: center;
+		color: #222222;
+		padding: 0rem 1rem;
+		font-size: 2rem;
+		width: min(150px, 33vw);
+	}
 `;
 
 export const CardContainer = styled.div<CardContainerProps>`
