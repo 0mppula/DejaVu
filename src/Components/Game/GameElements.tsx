@@ -6,10 +6,6 @@ interface CardProps {
 	card?: object;
 }
 
-interface CardContainerProps {
-	// onClick: () => void;
-}
-
 export const GameContainer = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -49,7 +45,7 @@ export const GameTop = styled.div`
 	}
 `;
 
-export const CardContainer = styled.div<CardContainerProps>`
+export const CardContainer = styled.div`
 	position: relative;
 `;
 
@@ -69,6 +65,10 @@ export const CardBack = styled.div<CardProps>`
 
 export const CardFront = styled.div<CardProps>`
 	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 3.5rem;
 	top: 0px;
 	right: 0px;
 	padding: 1rem;

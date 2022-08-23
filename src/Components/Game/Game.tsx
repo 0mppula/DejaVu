@@ -1,39 +1,72 @@
-import { FC, useState } from 'react';
+import { FC, useState, useEffect } from 'react';
 import Card from './Card';
 import { GameContainer, GameTop, CardsContainer, StartButton } from './GameElements';
 
 export type cardsArrayType = {
 	name: string;
 	icon: string;
+	matched: boolean;
 };
 
 const cardDeck: cardsArrayType[] = [
-	{ name: 'bars', icon: '📊' },
-	{ name: 'grow', icon: '📈' },
-	{ name: 'shrink', icon: '📉' },
-	{ name: 'money', icon: '💰' },
-	{ name: 'card', icon: '💳' },
-	{ name: 'bill', icon: '💵' },
-	{ name: 'rich', icon: '🤑' },
-	{ name: 'rocket', icon: '🚀' },
+	{ name: 'bars', icon: '📊', matched: false },
+	{ name: 'grow', icon: '📈', matched: false },
+	{ name: 'shrink', icon: '📉', matched: false },
+	{ name: 'money', icon: '💰', matched: false },
+	{ name: 'card', icon: '💳', matched: false },
+	{ name: 'bill', icon: '💵', matched: false },
+	{ name: 'rich', icon: '🤑', matched: false },
+	{ name: 'rocket', icon: '🚀', matched: false },
 ];
 
 const Game: FC = () => {
-	const [choiceOne, setChoiceOne] = useState<string | null>(null);
-	const [choiceTwo, setChoiceTwo] = useState<string | null>(null);
+	const [choiceOne, setChoiceOne] = useState<cardsArrayType | null>(null);
+	const [choiceTwo, setChoiceTwo] = useState<cardsArrayType | null>(null);
 	const [cards, setCards] = useState<cardsArrayType[] | null>(null);
 	const [turns, setTurns] = useState<number>(0);
+	const [gameActive, setGameActive] = useState<boolean>(false);
+
+	useEffect((): void => {
+		if (choiceOne && choiceTwo && cards) {
+			if (choiceOne.name === choiceTwo.name) {
+				let newCards: cardsArrayType[] = cards.map((card) => {
+					if (card.name === choiceOne.name) {
+						return { ...card, matched: true };
+					} else {
+						return { ...card };
+					}
+				});
+
+				setCards(newCards);
+
+				resetTurn();
+			} else {
+				console.log('!MATCH');
+				resetTurn();
+			}
+		}
+	}, [choiceOne, choiceTwo]);
 
 	// Shuffle cards
-	const shuffleCards = () => {
-		const shuffledCards = [...cardDeck, ...cardDeck].sort((a, b) => Math.random() - 0.5);
+	const shuffleCards = (): void => {
+		const shuffledCards = [...cardDeck, ...cardDeck]
+			.sort((a, b) => Math.random() - 0.5)
+			.map((card) => ({ ...card, id: Math.random() }));
 
 		setCards(shuffledCards);
 		setTurns(0);
 	};
 
-	const handleCardFlip = () => {
-		console.log(turns);
+	const handleChoice = (card: cardsArrayType): void => {
+		choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
+	};
+
+	console.log('choiceOne', choiceOne);
+	console.log('choiceTwo', choiceTwo);
+
+	const resetTurn = (): void => {
+		setChoiceOne(null);
+		setChoiceTwo(null);
 		setTurns(turns + 1);
 	};
 
@@ -44,9 +77,15 @@ const Game: FC = () => {
 				<StartButton onClick={shuffleCards}>Play</StartButton>
 				<p>00:00:00</p>
 			</GameTop>
+
 			<CardsContainer>
 				{cards?.map((card, index): any => (
-					<Card key={index} card={card} handleCardFlip={handleCardFlip} />
+					<Card
+						key={index}
+						card={card}
+						handleChoice={handleChoice}
+						flipped={card === choiceOne || card === choiceTwo || card.matched}
+					/>
 				))}
 			</CardsContainer>
 		</GameContainer>

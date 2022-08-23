@@ -1,20 +1,20 @@
-import { useState, FC } from 'react';
+import { FC } from 'react';
 import { CardBack, CardContainer, CardFront } from './GameElements';
 import { cardsArrayType } from './Game';
 
 interface Props {
 	card: cardsArrayType;
-	handleCardFlip: () => void;
+	flipped: boolean;
+	handleChoice: (card: cardsArrayType) => void;
 }
 
-const Card: FC<Props> = ({ card, handleCardFlip }) => {
-	const [flipped, setFlipped] = useState<boolean>(false);
-	const handleFlip = () => {};
-
+const Card: FC<Props> = ({ card, flipped, handleChoice }) => {
 	return (
-		<CardContainer onClick={handleCardFlip}>
+		<CardContainer onClick={() => handleChoice(card)}>
 			<CardBack flipped={flipped} />
-			<CardFront flipped={flipped} card={card} />
+			<CardFront flipped={flipped} card={card}>
+				{card.icon}
+			</CardFront>
 		</CardContainer>
 	);
 };
