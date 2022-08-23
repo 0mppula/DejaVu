@@ -41,7 +41,6 @@ const Game: FC = () => {
 
 				resetTurn();
 			} else {
-				console.log('!MATCH');
 				resetTurn();
 			}
 		}
@@ -60,9 +59,6 @@ const Game: FC = () => {
 	const handleChoice = (card: cardsArrayType): void => {
 		choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
 	};
-
-	console.log('choiceOne', choiceOne);
-	console.log('choiceTwo', choiceTwo);
 
 	const resetTurn = (): void => {
 		setChoiceOne(null);
