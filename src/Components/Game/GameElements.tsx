@@ -13,7 +13,25 @@ export const GameContainer = styled.div`
 	width: 100%;
 `;
 
+export const GameOverlay = styled.div`
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 5rem;
+	z-index: 100;
+	color: #00d646;
+	top: 324px;
+	right: 50%;
+	transform: translate(50%, -50%);
+	width: min(275px, 90%);
+	height: min(125px, 50%);
+	background: rgba(0.2, 0.2, 0.2, 0.5);
+	border-radius: 4px;
+`;
+
 export const CardsContainer = styled.div`
+	position: relative;
 	display: flex;
 	flex-wrap: wrap;
 	gap: 1rem;
@@ -24,6 +42,7 @@ export const CardsContainer = styled.div`
 export const StartButton = styled.button`
 	font-weight: 500;
 	background-color: #d4e6f6a8;
+	border-radius: 4px;
 	cursor: pointer;
 `;
 
@@ -33,7 +52,7 @@ export const GameTop = styled.div`
 	gap: 1rem;
 	align-items: center;
 	justify-content: center;
-	margin-bottom: 1rem;
+	margin-bottom: 2rem;
 
 	p,
 	button {
@@ -78,7 +97,7 @@ export const CardFront = styled.div<CardProps>`
 	background-color: white;
 	border-radius: 4px;
 	cursor: pointer;
-	background-color: #ccc;
+	background-color: #967bb680;
 	transition: all ease-in 0.2s;
 	transition-delay: ${(props) => (props.flipped ? '0.2s' : '0s')};
 	transform: ${(props) => (props.flipped ? 'rotateY(0deg)' : 'rotateY(90deg)')};

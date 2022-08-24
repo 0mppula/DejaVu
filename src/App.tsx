@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Game from './Components/Game/Game';
 
 const Container = styled.div`
-	padding-top: 2rem;
+	padding-top: 1rem;
 	display: flex;
 	min-height: 100vh;
 	width: min(768px, 93vw);
