@@ -7,9 +7,10 @@ interface Props {
 	flipped: boolean;
 	handleChoice: (card: cardsArrayType) => void;
 	disabled: boolean;
+	notStarted: boolean;
 }
 
-const Card: FC<Props> = ({ card, flipped, disabled, handleChoice }) => {
+const Card: FC<Props> = ({ card, flipped, disabled, notStarted, handleChoice }) => {
 	const handleClick = (card: cardsArrayType): void => {
 		if (!disabled) {
 			handleChoice(card);
@@ -17,10 +18,10 @@ const Card: FC<Props> = ({ card, flipped, disabled, handleChoice }) => {
 	};
 
 	return (
-		<CardContainer onClick={() => handleClick(card)}>
+		<CardContainer notStarted={notStarted} onClick={() => handleClick(card)}>
 			<CardBack flipped={flipped} />
 			<CardFront flipped={flipped} card={card}>
-				{card.icon}
+				{card.icon}			
 			</CardFront>
 		</CardContainer>
 	);

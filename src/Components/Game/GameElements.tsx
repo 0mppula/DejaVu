@@ -6,6 +6,10 @@ interface CardProps {
 	card?: object;
 }
 
+interface CardContainerProps {
+	notStarted: boolean;
+}
+
 export const GameContainer = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -64,8 +68,10 @@ export const GameTop = styled.div`
 	}
 `;
 
-export const CardContainer = styled.div`
+export const CardContainer = styled.div<CardContainerProps>`
 	position: relative;
+	opacity: ${(props) => (props.notStarted ? '0.5' : '1')};
+	pointer-events: ${(props) => (props.notStarted ? 'none' : 'auto')};
 `;
 
 export const CardBack = styled.div<CardProps>`
@@ -96,6 +102,7 @@ export const CardFront = styled.div<CardProps>`
 	height: 150px;
 	background-color: white;
 	border-radius: 4px;
+	user-select: none;
 	cursor: pointer;
 	background-color: #967bb680;
 	transition: all ease-in 0.2s;

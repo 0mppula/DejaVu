@@ -27,6 +27,22 @@ const Game: FC = () => {
 	const [turns, setTurns] = useState<number>(0);
 	const [disabled, setDisabled] = useState<boolean>(false);
 	const [gameActive, setGameActive] = useState<boolean>(false);
+	const [gameTime, setGameTime] = useState<number>(0);
+
+	// Initialize the game on first render
+	useEffect(() => {
+		shuffleCards(true);
+	}, []);
+
+	// Update the games timer
+	useEffect((): (() => void) => {
+		let timer: any;
+		if (gameActive) {
+			timer = setInterval(() => setGameTime((time) => time + 100), 100);
+		}
+
+		return () => clearInterval(timer);
+	}, [gameActive]);
 
 	useEffect((): void => {
 		if (choiceOne && choiceTwo && cards) {
@@ -53,17 +69,20 @@ const Game: FC = () => {
 				setTimeout(() => resetTurn(), 1000);
 			}
 		}
+		// eslint-disable-next-line
 	}, [choiceOne, choiceTwo]);
 
 	// Shuffle cards
-	const shuffleCards = (): void => {
+	const shuffleCards = (init?: boolean): void => {
 		const shuffledCards = [...cardDeck, ...cardDeck]
 			.sort((a, b) => Math.random() - 0.5)
 			.map((card) => ({ ...card, id: Math.random() }));
 
+		setGameTime(0);
 		setCards(shuffledCards);
 		setTurns(0);
-		setGameActive(true);
+
+		!init && setGameActive(true);
 	};
 
 	const handleChoice = (card: cardsArrayType): void => {
@@ -78,25 +97,44 @@ const Game: FC = () => {
 		setDisabled(false);
 	};
 
+	const printTimer = (): string => {
+		// 00:00:00
+		let time;
+		let mins: number | string = Math.floor(gameTime / 1000 / 60);
+		let secs: number | string = Math.floor((gameTime / 1000) % 60);
+		let cs = (gameTime / 100) % 10;
+
+		if (mins < 10) {
+			mins = `0${mins}`;
+		}
+		if (secs < 10) {
+			secs = `0${secs}`;
+		}
+		time = `${mins}:${secs}:${cs}0`;
+
+		return time;
+	};
+
 	return (
 		<GameContainer>
 			<GameTop>
 				<p>Turns: {turns}</p>
-				<StartButton onClick={shuffleCards}>
+				<StartButton onClick={() => shuffleCards()}>
 					{gameActive ? 'Restart' : 'Start Game'}
 				</StartButton>
-				<p>00:00:00</p>
+				<p>{printTimer()}</p>
 			</GameTop>
 
 			<CardsContainer>
-				{!gameActive && turns != 0 && <GameOverlay>You Win!</GameOverlay>}
+				{!gameActive && turns !== 0 && <GameOverlay>You Win!</GameOverlay>}
 				{cards?.map((card, index): any => (
 					<Card
 						key={index}
 						card={card}
 						handleChoice={handleChoice}
 						flipped={card === choiceOne || card === choiceTwo || card.matched}
-						disabled={disabled}
+						disabled={disabled || (!card.matched && !gameActive)}
+						notStarted={!card.matched && !gameActive}
 					/>
 				))}
 			</CardsContainer>
