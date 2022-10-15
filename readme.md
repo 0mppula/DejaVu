@@ -1,6 +1,6 @@
 # Déjà Vu
 
-[Déjà Vu][1] is a simple finance themed memory card game created using React and TypeScript.
+[Déjà Vu][1] is a simple finance themed memory card game with a turn counter and a timer created using React and TypeScript.
 
 The goal of this small project was to learn how to use [TypeScript][2] and [styled components][3] together.
 
