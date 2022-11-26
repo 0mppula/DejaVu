@@ -59,7 +59,12 @@ const Game: FC = () => {
 				setCards(newCards);
 
 				if (newCards.every((card) => card.matched)) {
-					setGameActive(false);
+					// Wait for card to flip before ending the game
+					const winGame = async () => {
+						setTimeout(() => setGameActive(false), 400);
+					};
+
+					winGame();
 				}
 
 				setTurns(turns + 1);
@@ -126,7 +131,12 @@ const Game: FC = () => {
 			</GameTop>
 
 			<CardsContainer>
-				{!gameActive && turns !== 0 && <GameOverlay>You Win!</GameOverlay>}
+				{!gameActive && turns !== 0 && (
+					<GameOverlay>
+						<p>You Win!</p>
+						<p>{printTimer()}</p>
+					</GameOverlay>
+				)}
 				{cards?.map((card, index): any => (
 					<Card
 						key={index}

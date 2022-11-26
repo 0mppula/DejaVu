@@ -18,11 +18,12 @@ export const GameContainer = styled.div`
 `;
 
 export const GameOverlay = styled.div`
+	padding: 0 1rem;
 	position: absolute;
 	display: flex;
-	justify-content: center;
+	flex-direction: column;
 	align-items: center;
-	font-size: 5rem;
+	font-size: 3.5rem;
 	z-index: 100;
 	color: #00d646;
 	top: 324px;
@@ -30,8 +31,13 @@ export const GameOverlay = styled.div`
 	transform: translate(50%, -50%);
 	width: min(275px, 90%);
 	height: min(125px, 50%);
-	background: rgba(0.2, 0.2, 0.2, 0.5);
+	background: rgba(0.2, 0.2, 0.2, 0.65);
 	border-radius: 4px;
+
+	p:nth-child(2) {
+		font-size: 2.75rem;
+		margin-top: -1rem;
+	}
 `;
 
 export const CardsContainer = styled.div`
